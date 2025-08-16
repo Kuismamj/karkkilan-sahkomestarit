@@ -14,7 +14,10 @@ export default function Home() {
   }, [])
 
   const getHeroTextSize = () => {
-    if (isMobile) return "1.3rem"
+    if (window.innerWidth <= 360) return "0.9rem"
+    if (window.innerWidth <= 410) return "1.1rem"
+    if (window.innerWidth <= 768) return "1.3rem"
+    if (window.innerWidth <= 1509) return "1.5rem"
     if (isTablet) return "1.6rem"
     return "1.9rem"
   }
@@ -35,6 +38,74 @@ export default function Home() {
     if (isMobile) return "50px"
     if (isTablet) return "60px"
     return "70px"
+  }
+
+  const getLogoSize = () => {
+    if (window.innerWidth <= 360) return "25px"
+    if (window.innerWidth <= 410) return "35px"
+    if (window.innerWidth <= 768) return "40px"
+    if (window.innerWidth <= 1509) return "45px"
+    if (isTablet) return "50px"
+    return "60px"
+  }
+
+  const getCardPadding = () => {
+    if (window.innerWidth <= 410) return "1rem"
+    if (window.innerWidth <= 768) return "1.2rem"
+    if (window.innerWidth <= 1509) return "1.3rem"
+    return "1.5rem"
+  }
+
+  const getCardMinHeight = () => {
+    if (window.innerWidth <= 410) return "100px"
+    if (window.innerWidth <= 768) return "120px"
+    if (window.innerWidth <= 1509) return "130px"
+    return "150px"
+  }
+
+  const getCardGap = () => {
+    if (window.innerWidth <= 410) return "1.2rem"
+    if (window.innerWidth <= 768) return "1.5rem"
+    if (window.innerWidth <= 1509) return "1.7rem"
+    return "2rem"
+  }
+
+  const getCardTextSize = () => {
+    if (window.innerWidth <= 410) return "0.8rem"
+    if (window.innerWidth <= 768) return "0.9rem"
+    if (window.innerWidth <= 1509) return "0.95rem"
+    return "1rem"
+  }
+
+  const getLinkTextSize = () => {
+    if (window.innerWidth <= 410) return "0.9rem"
+    if (window.innerWidth <= 768) return "1rem"
+    if (window.innerWidth <= 1509) return "1.05rem"
+    return "1.1rem"
+  }
+
+  const getLogoMarginBottom = () => {
+    if (window.innerWidth <= 410) return "0.8rem"
+    if (window.innerWidth <= 768) return "1rem"
+    if (window.innerWidth <= 1509) return "2rem"
+    return "2.5rem"
+  }
+
+  const getHeroMarginBottom = () => {
+    if (window.innerWidth <= 410) return "2.5rem"
+    if (window.innerWidth <= 768) return "3rem"
+    if (window.innerWidth <= 1509) return "3.5rem"
+    return "5.5rem"
+  }
+
+  const getGridMarginTop = () => {
+    if (window.innerWidth <= 768) return "0rem" // Mobiili/tablet: ei extra marginaalia
+    if (window.innerWidth <= 1509) return "1rem" // Medium: hieman rakoa
+    return "0rem"
+  }
+
+  const shouldShowIcons = () => {
+    return !isMobile && window.innerWidth > 1509
   }
 
   return (
@@ -61,6 +132,7 @@ export default function Home() {
           loop
           muted
           playsInline
+          preload="auto"
           style={{
             position: "absolute",
             top: 0,
@@ -69,6 +141,27 @@ export default function Home() {
             height: "100%",
             objectFit: "cover",
             zIndex: 0,
+          }}
+          onLoadedData={(e) => {
+            const video = e.currentTarget
+            video.currentTime = 0.1
+          }}
+          onEnded={(e) => {
+            const video = e.currentTarget
+            video.currentTime = 0
+            video.play()
+          }}
+          onTimeUpdate={(e) => {
+            const video = e.currentTarget
+            if (
+              video.duration > 0 &&
+              video.currentTime >= video.duration - 0.1
+            ) {
+              video.currentTime = 0
+            }
+          }}
+          onCanPlayThrough={(e) => {
+            e.currentTarget.play()
           }}
         >
           <source src="/background.mp4" type="video/mp4" />
@@ -107,14 +200,14 @@ export default function Home() {
               style={{
                 display: "flex",
                 justifyContent: "center",
-                marginBottom: isMobile ? "1rem" : "2.5rem",
+                marginBottom: getLogoMarginBottom(),
               }}
             >
               <img
                 src="/logo2.png"
                 alt="Karkkilan Sähkömestarit logo"
                 style={{
-                  height: isMobile ? "40px" : isTablet ? "50px" : "60px",
+                  height: getLogoSize(),
                   width: "auto",
                   objectFit: "contain",
                   borderRadius: "8px",
@@ -128,7 +221,7 @@ export default function Home() {
             <p
               style={{
                 fontSize: getHeroTextSize(),
-                marginBottom: isMobile ? "3rem" : "4.5rem",
+                marginBottom: getHeroMarginBottom(),
                 fontWeight: "100",
                 color: "#ffe600",
                 opacity: isLoaded ? 1 : 0,
@@ -148,8 +241,9 @@ export default function Home() {
               style={{
                 display: "grid",
                 gridTemplateColumns: getGridColumns(),
-                gap: isMobile ? "1.5rem" : "2rem",
-                marginBottom: isMobile ? "2rem" : "2rem", // SÄILYTETÄÄN: sama
+                gap: getCardGap(),
+                marginBottom: isMobile ? "2rem" : "2rem",
+                marginTop: getGridMarginTop(), // UUSI: Lisää rakoa ylhäältä
                 maxWidth: isMobile ? "100%" : isTablet ? "800px" : "1200px",
                 width: "100%",
                 padding: isMobile ? "0 1rem" : "0",
@@ -172,8 +266,8 @@ export default function Home() {
                     borderRadius: "18px",
                     border: "1.5px solid #7da0c8",
                     boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
-                    padding: isMobile ? "1.2rem" : "1.5rem",
-                    minHeight: isMobile ? "120px" : "150px",
+                    padding: getCardPadding(),
+                    minHeight: getCardMinHeight(),
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
@@ -196,12 +290,13 @@ export default function Home() {
                 >
                   <div
                     style={{
-                      fontSize: isMobile ? "0.9rem" : "1rem",
+                      fontSize: getCardTextSize(),
                       color: "#e5e7eb",
                       fontWeight: 400,
                       lineHeight: "1.6",
                       textAlign: "left",
-                      marginBottom: "1rem",
+                      marginBottom:
+                        window.innerWidth <= 410 ? "0.8rem" : "1rem",
                     }}
                   >
                     Luotettava sähköalan ammattilainen Uudellamaalla. Palvelemme
@@ -209,11 +304,11 @@ export default function Home() {
                   </div>
                   <div style={{ textAlign: "right" }}>
                     <Link
-                      to="/about"
+                      to="/yritys"
                       style={{
                         color: "#ffe600",
                         fontWeight: 700,
-                        fontSize: isMobile ? "1rem" : "1.1rem",
+                        fontSize: getLinkTextSize(),
                         textDecoration: "none",
                         cursor: "pointer",
                         transition: "color 0.2s",
@@ -245,8 +340,8 @@ export default function Home() {
                     borderRadius: "18px",
                     border: "1.5px solid #7da0c8",
                     boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
-                    padding: isMobile ? "1.2rem" : "1.5rem",
-                    minHeight: isMobile ? "120px" : "150px",
+                    padding: getCardPadding(),
+                    minHeight: getCardMinHeight(),
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
@@ -269,12 +364,13 @@ export default function Home() {
                 >
                   <div
                     style={{
-                      fontSize: isMobile ? "0.9rem" : "1rem",
+                      fontSize: getCardTextSize(),
                       color: "#e5e7eb",
                       fontWeight: 400,
                       lineHeight: "1.6",
                       textAlign: "left",
-                      marginBottom: "1rem",
+                      marginBottom:
+                        window.innerWidth <= 410 ? "0.8rem" : "1rem",
                     }}
                   >
                     Asennukset, huollot ja korjaukset ammattitaitoisesti.
@@ -282,11 +378,11 @@ export default function Home() {
                   </div>
                   <div style={{ textAlign: "right" }}>
                     <Link
-                      to="/services"
+                      to="/palvelut"
                       style={{
                         color: "#ffe600",
                         fontWeight: 700,
-                        fontSize: isMobile ? "1rem" : "1.1rem",
+                        fontSize: getLinkTextSize(),
                         textDecoration: "none",
                         cursor: "pointer",
                         transition: "color 0.2s",
@@ -318,8 +414,8 @@ export default function Home() {
                     borderRadius: "18px",
                     border: "1.5px solid #7da0c8",
                     boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
-                    padding: isMobile ? "1.2rem" : "1.5rem",
-                    minHeight: isMobile ? "120px" : "150px",
+                    padding: getCardPadding(),
+                    minHeight: getCardMinHeight(),
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
@@ -342,12 +438,13 @@ export default function Home() {
                 >
                   <div
                     style={{
-                      fontSize: isMobile ? "0.9rem" : "1rem",
+                      fontSize: getCardTextSize(),
                       color: "#e5e7eb",
                       fontWeight: 400,
                       lineHeight: "1.6",
                       textAlign: "left",
-                      marginBottom: "1rem",
+                      marginBottom:
+                        window.innerWidth <= 410 ? "0.8rem" : "1rem",
                     }}
                   >
                     Tarvitsetko sähköasentajaa? Ota yhteyttä ja saat
@@ -355,11 +452,11 @@ export default function Home() {
                   </div>
                   <div style={{ textAlign: "right" }}>
                     <Link
-                      to="/contact"
+                      to="/yhteys"
                       style={{
                         color: "#ffe600",
                         fontWeight: 700,
-                        fontSize: isMobile ? "1rem" : "1.1rem",
+                        fontSize: getLinkTextSize(),
                         textDecoration: "none",
                         cursor: "pointer",
                         transition: "color 0.2s",
@@ -377,8 +474,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            {/* Ikonit-osio - PIILOTETTU MOBIILISSA */}
-            {!isMobile && (
+
+            {/* Ikonit-osio - NÄKYY VAIN YLI 1509px */}
+            {shouldShowIcons() && (
               <div
                 style={{
                   display: "flex",

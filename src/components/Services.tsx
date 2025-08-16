@@ -117,7 +117,7 @@ export default function Services() {
   ]
 
   const handleContactClick = () => {
-    navigate("/contact", {
+    navigate("/yhteys", {
       state: { scrollTo: "contact-form" },
     })
   }
@@ -613,7 +613,7 @@ export default function Services() {
           </div>
         </div>
       )}
-      {/* Footer - korjattu layout */}
+
       <footer
         style={{
           marginTop: "auto",

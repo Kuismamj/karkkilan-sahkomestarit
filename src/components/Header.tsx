@@ -5,8 +5,43 @@ import "../styles/Navigation.css"
 
 const Header: React.FC = () => {
   const location = useLocation()
-  const { isMobile, isTablet, isDesktop } = useWindowSize()
+  const { isMobile, isTablet } = useWindowSize()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const needsBurgerMenu = () => {
+    return window.innerWidth < 1300
+  }
+
+  const getNavFontSize = () => {
+    if (window.innerWidth <= 1510) return "1.2rem"
+    return "1.4rem"
+  }
+
+  const getPhoneFontSize = () => {
+    if (window.innerWidth <= 1510) return "1.2rem"
+    return "1.5rem"
+  }
+
+  const getPhonePadding = () => {
+    if (window.innerWidth <= 1100) return "0.5rem"
+    if (window.innerWidth <= 1510) return "0.4rem 1rem"
+    return "0.5rem 1.2rem"
+  }
+
+  const getPhoneWidth = () => {
+    if (window.innerWidth <= 1100) return "auto"
+    if (window.innerWidth <= 1510) return "320px"
+    return "400px"
+  }
+
+  const getPhoneIconSize = () => {
+    if (window.innerWidth <= 1510) return "22px"
+    return "28px"
+  }
+
+  const showPhoneText = () => {
+    return window.innerWidth > 1100
+  }
 
   const getLinkStyle = (path: string): React.CSSProperties => ({
     textDecoration: "none",
@@ -14,6 +49,7 @@ const Header: React.FC = () => {
     transition: "color 0.1s ease, background 0.2s",
     padding: "0.5rem 1rem",
     borderRadius: "8px",
+    fontSize: getNavFontSize(),
     ...(location.pathname === path && {
       color: "#ffe600",
       background: "#2d3748",
@@ -61,6 +97,7 @@ const Header: React.FC = () => {
           justifyContent: "space-between",
           fontSize: isMobile ? "1.2rem" : "2rem",
           position: "relative",
+          marginRight: "0rem",
         }}
       >
         <Link
@@ -70,7 +107,7 @@ const Header: React.FC = () => {
             display: "flex",
             alignItems: "center",
             position: "relative",
-            marginTop: isMobile ? "5px" : "10px",
+            marginTop: isMobile ? "5px" : "5px",
           }}
           onClick={closeMenu}
         >
@@ -84,11 +121,13 @@ const Header: React.FC = () => {
               borderRadius: "8px",
               display: "block",
               transition: "box-shadow 0.2s",
+              transform: "translateY(0px)",
             }}
           />
         </Link>
-        {/* Desktop navigaatio - näkyy VAIN kun isDesktop = true */}
-        {isDesktop && (
+
+        {/* Desktop navigaatio - näkyy kun EI tarvita burger-menua (≥1300px) */}
+        {!needsBurgerMenu() && (
           <div style={{ display: "flex", gap: "4rem", alignItems: "center" }}>
             <Link
               to="/"
@@ -101,8 +140,8 @@ const Header: React.FC = () => {
               Etusivu
             </Link>
             <Link
-              to="/services"
-              style={getLinkStyle("/services")}
+              to="/palvelut"
+              style={getLinkStyle("/palvelut")}
               className="nav-link"
               onClick={() => {
                 setTimeout(() => window.scrollTo(0, 0), 0)
@@ -111,8 +150,8 @@ const Header: React.FC = () => {
               Palvelut
             </Link>
             <Link
-              to="/contact"
-              style={getLinkStyle("/contact")}
+              to="/yhteys"
+              style={getLinkStyle("/yhteys")}
               className="nav-link"
               onClick={() => {
                 setTimeout(() => window.scrollTo(0, 0), 0)
@@ -121,8 +160,8 @@ const Header: React.FC = () => {
               Yhteys
             </Link>
             <Link
-              to="/about"
-              style={getLinkStyle("/about")}
+              to="/yritys"
+              style={getLinkStyle("/yritys")}
               className="nav-link"
               onClick={() => {
                 setTimeout(() => window.scrollTo(0, 0), 0)
@@ -132,81 +171,98 @@ const Header: React.FC = () => {
             </Link>
           </div>
         )}
-        {/* Desktop puhelinnumero - näkyy VAIN kun isDesktop = true */}
-        {isDesktop && (
-          <div
+
+        {/* Desktop puhelinnumero - näkyy kun EI tarvita burger-menua (≥1300px) */}
+        {!needsBurgerMenu() && (
+          <a
+            href="tel:0505299650"
             style={{
               marginRight: "1.5rem",
               color: "#ffe600",
-              fontSize: "1.5rem",
+              fontSize: getPhoneFontSize(), // KÄYTTÄÄ SKAALATTUA KOKOA
               fontWeight: 600,
               letterSpacing: "1px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: "400px",
+              width: getPhoneWidth(), // KÄYTTÄÄ SKAALATTUA LEVEYTTÄ
               background: "#2d3748",
-              padding: "0.5rem 1.2rem",
+              padding: getPhonePadding(), // KÄYTTÄÄ SKAALATTUA PADDINGIA
               borderRadius: "10px",
               boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
+              textDecoration: "none",
+              transition: "all 0.2s ease",
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor = "#374151"
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = "#2d3748"
             }}
           >
             <img
               src="/phone-call.png"
               alt="Puhelin"
               style={{
-                width: "28px",
-                height: "28px",
+                width: getPhoneIconSize(), // KÄYTTÄÄ SKAALATTUA KOKOA
+                height: getPhoneIconSize(), // KÄYTTÄÄ SKAALATTUA KOKOA
                 objectFit: "contain",
-                marginRight: "0.7rem",
+                marginRight: showPhoneText() ? "0.7rem" : "0", // CONDITIONAL MARGIN
                 display: "block",
                 filter: "brightness(0) invert(1)",
               }}
             />
-            <a
-              href="tel:0505299650"
-              style={{
-                color: "#ffe600",
-                textDecoration: "none",
-                fontWeight: 500,
-                fontSize: "1.5rem",
-                letterSpacing: "1px",
-              }}
-            >
-              050 5299650
-            </a>
-          </div>
-        )}
-        {/* Mobile/Tablet: Puhelinnumero ja burger-menu - näkyy kun EI desktop */}
-        {!isDesktop && (
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            <a
-              href="tel:0505299650"
-              style={{
-                color: "#ffe600",
-                textDecoration: "none",
-                fontWeight: 600,
-                fontSize: isMobile ? "1rem" : "1.1rem",
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                background: "#2d3748",
-                padding: "0.4rem 0.8rem",
-                borderRadius: "8px",
-              }}
-            >
-              <img
-                src="/phone-call.png"
-                alt="Puhelin"
+            {/* CONDITIONAL: Näytä numero vain yli 1100px */}
+            {showPhoneText() && (
+              <span
                 style={{
-                  width: isMobile ? "18px" : "22px",
-                  height: isMobile ? "18px" : "22px",
-                  filter: "brightness(0) invert(1)",
+                  color: "#ffe600",
+                  fontWeight: 500,
+                  fontSize: getPhoneFontSize(),
+                  letterSpacing: "1px",
                 }}
-              />
-              {/* Näytä numero tablet-koossa, piilota mobiilissa */}
-              {isTablet && "050 5299650"}
-            </a>
+              >
+                050 5299650
+              </span>
+            )}
+          </a>
+        )}
+
+        {/* Burger-menu ja puhelinnumero - näkyy alle 1300px */}
+        {needsBurgerMenu() && (
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            {/* Puhelinnumero piilossa ≤340px leveydessä */}
+            {window.innerWidth > 340 && (
+              <a
+                href="tel:0505299650"
+                style={{
+                  color: "#ffe600",
+                  textDecoration: "none",
+                  fontWeight: 600,
+                  fontSize: window.innerWidth <= 768 ? "1rem" : "1.1rem",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  background: "#2d3748",
+                  padding: "0.4rem 0.8rem",
+                  borderRadius: "8px",
+                }}
+              >
+                <img
+                  src="/phone-call.png"
+                  alt="Puhelin"
+                  style={{
+                    width: window.innerWidth <= 768 ? "18px" : "22px",
+                    height: window.innerWidth <= 768 ? "18px" : "22px",
+                    filter: "brightness(0) invert(1)",
+                  }}
+                />
+                {/* Näytä numero tablet/medium-kooissa */}
+                {window.innerWidth > 768 &&
+                  window.innerWidth < 1300 &&
+                  "050 5299650"}
+              </a>
+            )}
             <button
               onClick={toggleMenu}
               style={{
@@ -249,8 +305,8 @@ const Header: React.FC = () => {
           </div>
         )}
 
-        {/* Mobile/Tablet menu overlay - näkyy kun EI desktop */}
-        {!isDesktop && isMenuOpen && (
+        {/* Mobile/Tablet menu overlay - näkyy alle 1300px */}
+        {needsBurgerMenu() && isMenuOpen && (
           <>
             <div
               style={{
@@ -264,18 +320,17 @@ const Header: React.FC = () => {
               }}
               onClick={closeMenu}
             />
-            {/* Menu */}
             <div
               style={{
                 position: "fixed",
-                top: isMobile ? "70px" : "80px",
+                top: window.innerWidth <= 768 ? "70px" : "80px",
                 right: "1rem",
                 backgroundColor: "#1f2937",
                 borderRadius: "12px",
                 boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
                 border: "1px solid #374151",
                 zIndex: 999,
-                minWidth: isMobile ? "200px" : "250px",
+                minWidth: window.innerWidth <= 768 ? "200px" : "250px",
                 animation: "slideDown 0.3s ease-out",
               }}
             >
@@ -292,7 +347,7 @@ const Header: React.FC = () => {
                     ...getLinkStyle("/"),
                     padding: "1rem 1.5rem",
                     borderRadius: "0",
-                    fontSize: isMobile ? "1.1rem" : "1.3rem",
+                    fontSize: window.innerWidth <= 768 ? "1.1rem" : "1.3rem",
                     color: location.pathname === "/" ? "#ffe600" : "#e5e7eb",
                     borderBottom: "1px solid #374151",
                   }}
@@ -311,14 +366,14 @@ const Header: React.FC = () => {
                   Etusivu
                 </Link>
                 <Link
-                  to="/services"
+                  to="/palvelut"
                   style={{
-                    ...getLinkStyle("/services"),
+                    ...getLinkStyle("/palvelut"),
                     padding: "1rem 1.5rem",
                     borderRadius: "0",
-                    fontSize: isMobile ? "1.1rem" : "1.3rem",
+                    fontSize: window.innerWidth <= 768 ? "1.1rem" : "1.3rem",
                     color:
-                      location.pathname === "/services" ? "#ffe600" : "#e5e7eb",
+                      location.pathname === "/palvelut" ? "#ffe600" : "#e5e7eb",
                     borderBottom: "1px solid #374151",
                   }}
                   className="nav-link"
@@ -330,20 +385,20 @@ const Header: React.FC = () => {
                   onMouseOut={(e) => {
                     e.currentTarget.style.backgroundColor = "transparent"
                     e.currentTarget.style.color =
-                      location.pathname === "/services" ? "#ffe600" : "#e5e7eb"
+                      location.pathname === "/palvelut" ? "#ffe600" : "#e5e7eb"
                   }}
                 >
                   Palvelut
                 </Link>
                 <Link
-                  to="/contact"
+                  to="/yhteys"
                   style={{
-                    ...getLinkStyle("/contact"),
+                    ...getLinkStyle("/yhteys"),
                     padding: "1rem 1.5rem",
                     borderRadius: "0",
-                    fontSize: isMobile ? "1.1rem" : "1.3rem",
+                    fontSize: window.innerWidth <= 768 ? "1.1rem" : "1.3rem",
                     color:
-                      location.pathname === "/contact" ? "#ffe600" : "#e5e7eb",
+                      location.pathname === "/yhteys" ? "#ffe600" : "#e5e7eb",
                     borderBottom: "1px solid #374151",
                   }}
                   className="nav-link"
@@ -355,20 +410,20 @@ const Header: React.FC = () => {
                   onMouseOut={(e) => {
                     e.currentTarget.style.backgroundColor = "transparent"
                     e.currentTarget.style.color =
-                      location.pathname === "/contact" ? "#ffe600" : "#e5e7eb"
+                      location.pathname === "/yhteys" ? "#ffe600" : "#e5e7eb"
                   }}
                 >
                   Yhteys
                 </Link>
                 <Link
-                  to="/about"
+                  to="/yritys"
                   style={{
-                    ...getLinkStyle("/about"),
+                    ...getLinkStyle("/yritys"),
                     padding: "1rem 1.5rem",
                     borderRadius: "0",
-                    fontSize: isMobile ? "1.1rem" : "1.3rem",
+                    fontSize: window.innerWidth <= 768 ? "1.1rem" : "1.3rem",
                     color:
-                      location.pathname === "/about" ? "#ffe600" : "#e5e7eb",
+                      location.pathname === "/yritys" ? "#ffe600" : "#e5e7eb",
                   }}
                   className="nav-link"
                   onClick={closeMenu}
@@ -379,12 +434,13 @@ const Header: React.FC = () => {
                   onMouseOut={(e) => {
                     e.currentTarget.style.backgroundColor = "transparent"
                     e.currentTarget.style.color =
-                      location.pathname === "/about" ? "#ffe600" : "#e5e7eb"
+                      location.pathname === "/yritys" ? "#ffe600" : "#e5e7eb"
                   }}
                 >
                   Yritys
                 </Link>
-                {isMobile && (
+                {/* Puhelinnumero näkyy AINA mobiilimenussa */}
+                {window.innerWidth <= 768 && (
                   <div
                     style={{
                       padding: "1rem 1.5rem",
