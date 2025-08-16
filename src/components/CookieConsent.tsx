@@ -15,10 +15,16 @@ const CookieConsent: React.FC = () => {
   }, [])
 
   const loadGoogleAnalytics = () => {
+    const MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID
+
+    if (!MEASUREMENT_ID) {
+      console.warn("Google Analytics Measurement ID not found")
+      return
+    }
+
     const script1 = document.createElement("script")
     script1.async = true
-    script1.src =
-      "https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
+    script1.src = `https://www.googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}`
     document.head.appendChild(script1)
 
     const script2 = document.createElement("script")
@@ -26,7 +32,7 @@ const CookieConsent: React.FC = () => {
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'GA_MEASUREMENT_ID');
+      gtag('config', '${MEASUREMENT_ID}');
     `
     document.head.appendChild(script2)
   }
