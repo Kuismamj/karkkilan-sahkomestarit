@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: #0e223a !important;
+  overflow-x: hidden;
+}
+
+#root {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+}
+
+.App {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+}
+
+/* Mobile First -lähestymistapa */
+@media (max-width: 768px) {
+  /* Grid muutokset */
+  .grid-responsive {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* Padding pienemmäksi */
+  .padding-responsive {
+    padding: 1rem !important;
+  }
+
+  /* Fonttikoot pienemmäksi */
+  .text-responsive-large {
+    font-size: 1.8rem !important;
+  }
+
+  .text-responsive-medium {
+    font-size: 1.3rem !important;
+  }
+
+  .text-responsive-small {
+    font-size: 1rem !important;
+  }
+}
+
+/* Puhelin ja pienemmät näytöt */
+@media (max-width: 480px) {
+  .text-responsive-large {
+    font-size: 1.5rem !important;
+  }
+
+  .text-responsive-medium {
+    font-size: 1.1rem !important;
+  }
+
+  .padding-responsive {
+    padding: 0.5rem !important;
+  }
+
+  /* Napit koko leveydelle */
+  .button-responsive {
+    width: 100% !important;
+    margin-bottom: 1rem !important;
+  }
+}

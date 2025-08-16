@@ -1,0 +1,28 @@
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  font-size: 3rem;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    font-size: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  background: #2d3748;
+  color: #ffe600;
+  transition: background 0.2s, color 0.2s;
+}
