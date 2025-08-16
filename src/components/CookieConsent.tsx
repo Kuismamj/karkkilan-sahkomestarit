@@ -15,10 +15,11 @@ const CookieConsent: React.FC = () => {
   }, [])
 
   const loadGoogleAnalytics = () => {
-    const MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID
+    const MEASUREMENT_ID =
+      import.meta.env.VITE_GA_MEASUREMENT_ID || "G-XXXXXXXXXX"
 
-    if (!MEASUREMENT_ID) {
-      console.warn("Google Analytics Measurement ID not found")
+    if (!MEASUREMENT_ID || MEASUREMENT_ID === "G-XXXXXXXXXX") {
+      console.warn("Google Analytics Measurement ID not configured")
       return
     }
 
