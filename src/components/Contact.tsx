@@ -152,8 +152,8 @@ const Contact: React.FC = () => {
               gridTemplateColumns: isMobile
                 ? "1fr"
                 : isTablet
-                ? "1fr"
-                : "repeat(auto-fit, minmax(280px, 1fr))",
+                  ? "1fr"
+                  : "repeat(auto-fit, minmax(280px, 1fr))",
               gap: isMobile ? "1.5rem" : "3rem",
               marginBottom: isMobile ? "1rem" : "2rem",
             }}
@@ -596,6 +596,7 @@ const Contact: React.FC = () => {
             </h4>
             <div style={{ lineHeight: "1.6" }}>
               <div>Siikalantie 14, 03600 Karkkila</div>
+              <div>Santeri Bäckström</div>
               <div>Y-tunnus: 3496184-6</div>
             </div>
           </div>
@@ -654,7 +655,7 @@ const Contact: React.FC = () => {
             color: "#9ca3af",
           }}
         >
-          © 2025 Karkkilan Sähkömestarit Oy
+          © 2026 Karkkilan Sähkömestarit Oy
           <br />
           <span
             style={{

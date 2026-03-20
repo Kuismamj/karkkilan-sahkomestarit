@@ -643,6 +643,7 @@ export default function Home() {
             </h4>
             <div style={{ lineHeight: "1.6" }}>
               <div>Siikalantie 14, 03600 Karkkila</div>
+              <div>Santeri Bäckström</div>
               <div>Y-tunnus: 3496184-6</div>
             </div>
           </div>
@@ -703,7 +704,7 @@ export default function Home() {
             color: "#9ca3af",
           }}
         >
-          © 2025 Karkkilan Sähkömestarit Oy
+          © 2026 Karkkilan Sähkömestarit Oy
           <br />
           <span
             style={{

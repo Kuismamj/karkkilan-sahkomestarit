@@ -38,9 +38,14 @@ const services = [
         style={{ width: 40, height: 40, filter: "brightness(0) invert(1)" }}
       />
     ),
-    title: "Korjaustyöt",
+    title: "Korjaus- ja huoltotyöt",
     desc: "Luotettavat huolto- ja korjauspalvelut kaikenlaisiin sähkölaitteisiin",
-    items: ["Korjaukset", "Komponenttien vaihto", "Pikahuollot"],
+    items: [
+      "Korjaukset",
+      "Komponenttien vaihto",
+      "Pikahuollot",
+      "Säännölliset huollot",
+    ],
     buttonColor: "#1a2e47",
   },
   {
@@ -73,20 +78,15 @@ const services = [
   {
     icon: (
       <img
-        src="/settings.png"
-        alt="Huoltotyöt"
+        src="/sauna-heater.png"
+        alt="Sähkökiukaat"
         style={{ width: 40, height: 40, filter: "brightness(0) invert(1)" }}
       />
     ),
-    title: "Huoltotyöt",
-    desc: "Ammattitaitoiset sähköjärjestelmien huolto ja kunnossapito",
-    items: [
-      "Sähköjärjestelmien huolto",
-      "Kunnossapito",
-      "Turvallisuustarkastukset",
-    ],
-    buttonColor: "#ffe600",
-    buttonTextColor: "#1a2e47",
+    title: "Sähkökiukaat",
+    desc: "Sähkökiukaiden asennus ja huolto kilpailukykyiseen hintaan.",
+    items: ["Asennus", "Huolto", "Tarkastus"],
+    buttonColor: "#1a2e47",
   },
 ]
 
@@ -211,8 +211,8 @@ export default function Services() {
           gridTemplateColumns: isMobile
             ? "1fr"
             : isTablet
-            ? "repeat(2, 1fr)"
-            : "repeat(auto-fit, minmax(340px, 1fr))",
+              ? "repeat(2, 1fr)"
+              : "repeat(auto-fit, minmax(340px, 1fr))",
           gap: isMobile ? "1.5rem" : "2.5rem",
           maxWidth: 1200,
           margin: "0 auto",
@@ -397,13 +397,13 @@ export default function Services() {
           gridTemplateColumns: isMobile
             ? "1fr"
             : isTablet
-            ? "repeat(2, 1fr)"
-            : "repeat(3, 1fr)",
+              ? "repeat(2, 1fr)"
+              : "repeat(3, 1fr)",
           gridTemplateRows: isMobile
             ? "repeat(9, 300px)"
             : isTablet
-            ? "repeat(5, 350px)"
-            : "repeat(3, 350px)",
+              ? "repeat(5, 350px)"
+              : "repeat(3, 350px)",
           gap: isMobile ? "1rem" : "1.5rem",
           maxWidth: 1000,
           margin: "0 auto",
@@ -430,10 +430,10 @@ export default function Services() {
             onClick={() => setSelectedImage(image.src)}
             onMouseOver={(e) => {
               const overlay = e.currentTarget.querySelector(
-                ".hover-overlay"
+                ".hover-overlay",
               ) as HTMLElement | null
               const icon = e.currentTarget.querySelector(
-                ".zoom-icon"
+                ".zoom-icon",
               ) as HTMLElement | null
               if (overlay && icon) {
                 overlay.style.opacity = "1"
@@ -442,10 +442,10 @@ export default function Services() {
             }}
             onMouseOut={(e) => {
               const overlay = e.currentTarget.querySelector(
-                ".hover-overlay"
+                ".hover-overlay",
               ) as HTMLElement | null
               const icon = e.currentTarget.querySelector(
-                ".zoom-icon"
+                ".zoom-icon",
               ) as HTMLElement | null
               if (overlay && icon) {
                 overlay.style.opacity = "0"
@@ -650,6 +650,7 @@ export default function Services() {
             </h4>
             <div style={{ lineHeight: "1.6" }}>
               <div>Siikalantie 14, 03600 Karkkila</div>
+              <div>Santeri Bäckström</div>
               <div>Y-tunnus: 3496184-6</div>
             </div>
           </div>
@@ -709,7 +710,7 @@ export default function Services() {
             color: "#9ca3af",
           }}
         >
-          © 2025 Karkkilan Sähkömestarit Oy
+          © 2026 Karkkilan Sähkömestarit Oy
           <br />
           <span
             style={{

@@ -129,8 +129,8 @@ export default function About() {
               gridTemplateColumns: isMobile
                 ? "1fr"
                 : isTablet
-                ? "1fr"
-                : "2fr 1fr",
+                  ? "1fr"
+                  : "2fr 1fr",
               gap: isMobile ? "2rem" : "3rem",
               alignItems: "start",
             }}
@@ -144,8 +144,8 @@ export default function About() {
                 padding: isMobile
                   ? "1.5rem 1rem"
                   : isTablet
-                  ? "2rem 1.5rem"
-                  : "3rem 2.5rem",
+                    ? "2rem 1.5rem"
+                    : "3rem 2.5rem",
                 color: "#e5e7eb",
                 fontSize: isMobile ? "1rem" : isTablet ? "1.1rem" : "1.25rem",
                 lineHeight: isMobile ? "1.6" : "2",
@@ -218,7 +218,6 @@ export default function About() {
                   margin: isMobile ? "1rem 0" : "1.5rem 0",
                 }}
               />
-
               <p
                 style={{
                   color: "#ffe600",
@@ -232,6 +231,45 @@ export default function About() {
                 💡 Tuet nuorta yrittäjää ja kotimaista työtä kun ostatte
                 palveluita meiltä!
               </p>
+              <div
+                style={{
+                  textAlign: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginTop: isMobile ? "1.5rem" : "2rem",
+                }}
+              >
+                <img
+                  src="/harviaa.png"
+                  alt="Harvia Logo"
+                  style={{
+                    width: isMobile ? "100px" : "120px",
+                    marginBottom: "1rem",
+                  }}
+                />
+
+                <h2
+                  style={{
+                    color: "#ffe600",
+                    fontSize: isMobile ? "1rem" : "1.2rem",
+                  }}
+                >
+                  Harvian valtuutettu huoltoliike
+                </h2>
+                <p
+                  style={{
+                    color: "#e5e7eb",
+                    fontSize: isMobile ? "0.8rem" : "1rem",
+                    lineHeight: "1.6",
+                    maxWidth: "500px",
+                  }}
+                >
+                  Olemme Harvian valtuutettu huoltoliike. Toteutamme
+                  sähkökiukaiden asennukset ammattitaidolla kilpailukykyiseen
+                  hintaan.
+                </p>
+              </div>
             </div>
             {/* Oikeanpuoleiset yritystiedot - GRID MOBIILILLA */}
             <div
@@ -244,6 +282,7 @@ export default function About() {
                 gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr",
                 gap: isMobile ? "1rem" : "1.97rem",
                 order: isMobile ? 1 : 2,
+                height: "100%",
               }}
             >
               {/* Yritys */}
@@ -293,6 +332,10 @@ export default function About() {
                   }}
                 >
                   Karkkilan Sähkömestarit Oy
+                  <br />
+                  -
+                  <br />
+                  Santeri Bäckström
                 </p>
               </div>
 
@@ -481,7 +524,6 @@ export default function About() {
             </div>
           </div>
         </div>
-
         {/* Arvot - RESPONSIIVINEN */}
         <div
           style={{
@@ -503,7 +545,6 @@ export default function About() {
             Toimintaamme ohjaavat{" "}
             <span style={{ color: "#ffe600" }}>arvomme</span>
           </h2>
-
           {/* ARVOT - RESPONSIIVINEN GRID */}
           <div
             style={{
@@ -513,16 +554,16 @@ export default function About() {
               padding: isMobile
                 ? "2rem 1rem"
                 : isTablet
-                ? "3rem 2rem"
-                : "4rem 3rem",
+                  ? "3rem 2rem"
+                  : "4rem 3rem",
               maxWidth: isMobile ? "100%" : "1200px",
               margin: "0 auto",
               display: "grid",
               gridTemplateColumns: isMobile
                 ? "1fr"
                 : isTablet
-                ? "1fr auto 1fr auto 1fr"
-                : "1fr auto 1fr auto 1fr",
+                  ? "1fr auto 1fr auto 1fr"
+                  : "1fr auto 1fr auto 1fr",
               gap: isMobile ? "2rem" : "2rem",
               alignItems: "center",
             }}
@@ -757,6 +798,7 @@ export default function About() {
             </h4>
             <div style={{ lineHeight: "1.6" }}>
               <div>Siikalantie 14, 03600 Karkkila</div>
+              <div>Santeri Bäckström</div>
               <div>Y-tunnus: 3496184-6</div>
             </div>
           </div>
@@ -818,7 +860,7 @@ export default function About() {
             color: "#9ca3af",
           }}
         >
-          © 2025 Karkkilan Sähkömestarit Oy
+          © 2026 Karkkilan Sähkömestarit Oy
           <br />
           <span
             style={{
