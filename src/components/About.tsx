@@ -333,8 +333,6 @@ export default function About() {
                 >
                   Karkkilan Sähkömestarit Oy
                   <br />
-                  -
-                  <br />
                   Santeri Bäckström
                 </p>
               </div>
